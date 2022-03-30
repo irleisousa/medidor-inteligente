@@ -1,0 +1,327 @@
+import cv2
+from object_detector import *
+import numpy as np
+from tkinter import *
+import time
+
+
+def la(evento=None):
+
+    detector = HomogeneousBgDetector()
+
+
+    cap = cv2.VideoCapture(0)
+  
+
+    while True:
+        _, frame = cap.read()
+        
+        frame = frame[50:350, 160:480]
+        
+        gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+        
+        blur = cv2.GaussianBlur(gray, (3, 3), 3)
+        
+        _, threshold = cv2.threshold(blur, 110, 255, cv2.THRESH_BINARY)
+        #canny = cv2.Canny(blur, 100, 150)
+        
+        kernel = np.ones((5,5),np.uint8)
+        
+        dilate = cv2.dilate(threshold, kernel, iterations=1)
+        
+        #dilate = cv2.dilate(canny, kernel, iterations=1)
+        
+        contours_list,_ = cv2.findContours(dilate, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+
+        contours = detector.detect_objects(frame)
+
+        for cnt in contours:
+
+            rect = cv2.minAreaRect(cnt)
+            (x, y), (w, h), angle = rect
+
+
+            box = cv2.boxPoints(rect)
+            box = np.int0(box)
+            
+
+            cmW = (w*10)/80
+            cmH = (h*10)/80
+            cv2.circle(frame, (int(x), int(y)), 5, (0, 255, 0), -1) 
+            cv2.polylines(frame, [box], True, (0, 0, 255), 2)
+            #cv2.putText(frame, "Comprimento: {} cm".format(round(cmW)), (int(x - 85), int(y - 15)), cv2.FONT_HERSHEY_PLAIN, 1, (255, 0, 0), 1)
+            #cv2.putText(frame, "Largura: {} cm".format(round(cmH)), (int(x - 60), int(y + 25)), cv2.FONT_HERSHEY_PLAIN, 1, (255, 0, 0), 1)
+        
+
+
+            Medida = int(cmW)
+            
+            
+            if Medida == 5:
+                texto = f'Comprimento: Reprovado'
+                cv2.putText(frame, texto, (5, 15), cv2.FONT_HERSHEY_SIMPLEX, 0.4, (0,0,255), 1)
+                texto1=Label(master, text="C: Reprovado",bg="red", fg="white", font="Times 110", width=20, height= 3)
+                texto1.grid(column=0, row =0, padx =1, pady =1)
+                master.update()
+                time.sleep(0.1)
+            if Medida == 6:
+                texto = f'Comprimento: Reprovado'
+                cv2.putText(frame, texto, (5, 15), cv2.FONT_HERSHEY_SIMPLEX, 0.4, (0,0,255), 1)
+                texto1=Label(master, text="C: Reprovado",bg="red", fg="white", font="Times 110", width=20, height= 3)
+                texto1.grid(column=0, row =0, padx =1, pady =1)
+                master.update()
+                time.sleep(0.1)
+            if Medida == 7:
+                texto = f'Comprimento: Reprovado'
+                cv2.putText(frame, texto, (5, 15), cv2.FONT_HERSHEY_SIMPLEX, 0.4, (0,0,255), 1)
+                texto1=Label(master, text="C: Reprovado",bg="red", fg="white", font="Times 110", width=20, height= 3)
+                texto1.grid(column=0, row =0, padx =1, pady =1)
+                master.update()
+                time.sleep(0.1)
+            if Medida == 8:
+                texto = f'Comprimento: Reprovado'
+                cv2.putText(frame, texto, (5, 15), cv2.FONT_HERSHEY_SIMPLEX, 0.4, (0,0,255), 1)
+                texto1=Label(master, text="C: Reprovado",bg="red", fg="white", font="Times 110", width=20, height= 3)
+                texto1.grid(column=0, row =0, padx =1, pady =1)
+                master.update()
+                time.sleep(0.1)
+            if Medida == 9:
+                texto = f'Comprimento: Reprovado'
+                cv2.putText(frame, texto, (5, 15), cv2.FONT_HERSHEY_SIMPLEX, 0.4, (0,0,255), 1)
+                texto1=Label(master, text="C: Reprovado",bg="red", fg="white", font="Times 110", width=20, height= 3)
+                texto1.grid(column=0, row =0, padx =1, pady =1)
+                master.update()
+                time.sleep(0.1)
+            if Medida == 10:
+                texto = f'Comprimento: Aprovado'
+                cv2.putText(frame, texto, (5, 15), cv2.FONT_HERSHEY_SIMPLEX, 0.4, (0,255,0), 1)
+                texto1=Label(master, text="C: Aprovado",bg="green", fg="white", font="Times 110", width=20, height= 3)
+                texto1.grid(column=0, row =0, padx =1, pady =1)
+                master.update()
+                time.sleep(0.1)
+            if Medida == 11:
+                texto = f'Comprimento: Reprovado'
+                cv2.putText(frame, texto, (5, 15), cv2.FONT_HERSHEY_SIMPLEX, 0.4, (0,0,255), 1)
+                texto1=Label(master, text="C: Reprovado",bg="red", fg="white", font="Times 110", width=20, height= 3)
+                texto1.grid(column=0, row =0, padx =1, pady =1)
+                master.update()
+                time.sleep(0.1)
+            if Medida == 12:
+                texto = f'Comprimento: Reprovado'
+                cv2.putText(frame, texto, (5, 15), cv2.FONT_HERSHEY_SIMPLEX, 0.4, (0,0,255), 1)
+                texto1=Label(master, text="C: Reprovado",bg="red", fg="white", font="Times 110", width=20, height= 3)
+                texto1.grid(column=0, row =0, padx =1, pady =1)
+                master.update()
+                time.sleep(0.1)
+            if Medida == 13:
+                texto = f'Comprimento: Reprovado'
+                cv2.putText(frame, texto, (5, 15), cv2.FONT_HERSHEY_SIMPLEX, 0.4, (0,0,255), 1)
+                texto1=Label(master, text="C: Reprovado",bg="red", fg="white", font="Times 110", width=20, height= 3)
+                texto1.grid(column=0, row =0, padx =1, pady =1)
+                master.update()
+                time.sleep(0.1)
+            if Medida == 14:
+                texto= f'Comprimento: Reprovado'
+                cv2.putText(frame, texto, (5, 15), cv2.FONT_HERSHEY_SIMPLEX, 0.4, (0,0,255), 1)
+                texto1=Label(master, text="C: Reprovado",bg="red", fg="white", font="Times 110", width=20, height= 3)
+                texto1.grid(column=0, row =0, padx =1, pady =1)
+                master.update()
+                time.sleep(0.1)
+            if Medida == 15:
+                texto = f'Comprimento: Aprovado'
+                cv2.putText(frame, texto, (5, 15), cv2.FONT_HERSHEY_SIMPLEX, 0.4, (0,255,0), 1)
+                texto1=Label(master, text="C: Aprovado",bg="green", fg="white", font="Times 110", width=20, height= 3)
+                texto1.grid(column=0, row =0, padx =1, pady =1)
+                master.update()
+                time.sleep(0.1)
+            if Medida == 16:
+                texto = f'Comprimento: Reprovado'
+                cv2.putText(frame, texto, (5, 15), cv2.FONT_HERSHEY_SIMPLEX, 0.4, (0,0,255), 1)
+                texto1=Label(master, text="C: Reprovado",bg="red", fg="white", font="Times 110", width=20, height= 3)
+                texto1.grid(column=0, row =0, padx =1, pady =1)
+                master.update()
+                time.sleep(0.1)
+            if Medida == 17:
+                texto = f'Comprimento: Reprovado'
+                cv2.putText(frame, texto, (5, 15), cv2.FONT_HERSHEY_SIMPLEX, 0.4, (0,0,255), 1)
+                texto1=Label(master, text="C: Reprovado",bg="red", fg="white", font="Times 110", width=20, height= 3)
+                texto1.grid(column=0, row =0, padx =1, pady =1)
+                master.update()
+                time.sleep(0.1)
+            if Medida == 18:
+                texto = f'Comprimento: Reprovado'
+                cv2.putText(frame, texto, (5, 15), cv2.FONT_HERSHEY_SIMPLEX, 0.4, (0,0,255), 1)
+                texto1=Label(master, text="C: Reprovado",bg="red", fg="white", font="Times 110", width=20, height= 3)
+                texto1.grid(column=0, row =0, padx =1, pady =1)
+                master.update()
+                time.sleep(0.1)
+            if Medida == 19:
+                texto = f'Comprimento: Reprovado'
+                cv2.putText(frame, texto, (5, 15), cv2.FONT_HERSHEY_SIMPLEX, 0.4, (0,0,255), 1)
+                texto1=Label(master, text="C: Reprovado",bg="red", fg="white", font="Times 110", width=20, height= 3)
+                texto1.grid(column=0, row =0, padx =1, pady =1)
+                master.update()
+                time.sleep(0.1)
+            if Medida == 20:
+                texto = f'Comprimento: Reprovado'
+                cv2.putText(frame, texto, (5, 15), cv2.FONT_HERSHEY_SIMPLEX, 0.4, (0,0,255), 1)
+                texto1=Label(master, text="C: Reprovado",bg="red", fg="white", font="Times 110", width=20, height= 3)
+                texto1.grid(column=0, row =0, padx =1, pady =1)
+                master.update()
+                time.sleep(0.1)
+            
+            
+            Medida1 = int(cmH)
+            
+            
+            if Medida1 == 5:
+                texto = f'Largura: Reprovado'
+                cv2.putText(frame, texto, (5, 35), cv2.FONT_HERSHEY_SIMPLEX, 0.4, (0,0,255), 1)
+                texto2=Label(master, text="L: Reprovado",bg="red", fg="white", font="Times 110", width=20, height= 3)
+                texto2.grid(column=0, row =1, padx =1, pady =1)
+                master.update()
+                time.sleep(0.1)
+            if Medida1 == 6:
+                texto = f'Largura: Reprovado'
+                cv2.putText(frame, texto, (5, 35), cv2.FONT_HERSHEY_SIMPLEX, 0.4, (0,0,255), 1)
+                texto2=Label(master, text="L: Reprovado",bg="red", fg="white", font="Times 110", width=20, height= 3)
+                texto2.grid(column=0, row =1, padx =1, pady =1)
+                master.update()
+                time.sleep(0.1)
+            if Medida1 == 7:
+                texto = f'Largura: Reprovado'
+                cv2.putText(frame, texto, (5, 35), cv2.FONT_HERSHEY_SIMPLEX, 0.4, (0,0,255), 1)
+                texto2=Label(master, text="L: Reprovado",bg="red", fg="white", font="Times 110", width=20, height= 3)
+                texto2.grid(column=0, row =1, padx =1, pady =1)
+                master.update()
+                time.sleep(0.1)
+            if Medida1 == 8:
+                texto = f'Largura: Reprovado'
+                cv2.putText(frame, texto, (5, 35), cv2.FONT_HERSHEY_SIMPLEX, 0.4, (0,0,255), 1)
+                texto2=Label(master, text="L: Reprovado",bg="red", fg="white", font="Times 110", width=20, height= 3)
+                texto2.grid(column=0, row =1, padx =1, pady =1)
+                master.update()
+                time.sleep(0.1)
+            if Medida1 == 9:
+                texto = f'Largura: Reprovado'
+                cv2.putText(frame, texto, (5, 35), cv2.FONT_HERSHEY_SIMPLEX, 0.4, (0,0,255), 1)
+                texto2=Label(master, text="L: Reprovado",bg="red", fg="white", font="Times 110", width=20, height= 3)
+                texto2.grid(column=0, row =1, padx =1, pady =1)
+                master.update()
+                time.sleep(0.1)
+            if Medida1 == 10:
+                texto = f'Largura: Aprovado'
+                cv2.putText(frame, texto, (5, 35), cv2.FONT_HERSHEY_SIMPLEX, 0.4, (0,255,0), 1)
+                texto2=Label(master, text="L: Aprovado",bg="green", fg="white", font="Times 110", width=20, height= 3)
+                texto2.grid(column=0, row =1, padx =1, pady =1)
+                master.update()
+                time.sleep(0.1)
+            if Medida1 == 11:
+                texto = f'Largura: Reprovado'
+                cv2.putText(frame, texto, (5, 35), cv2.FONT_HERSHEY_SIMPLEX, 0.4, (0,0,255), 1)
+                texto2=Label(master, text="L: Reprovado",bg="red", fg="white", font="Times 110", width=20, height= 3)
+                texto2.grid(column=0, row =1, padx =1, pady =1)
+                master.update()
+                time.sleep(0.1)
+            if Medida1 == 12:
+                texto = f'Largura: Reprovado'
+                cv2.putText(frame, texto, (5, 35), cv2.FONT_HERSHEY_SIMPLEX, 0.4, (0,0,255), 1)
+                texto2=Label(master, text="L: Reprovado",bg="red", fg="white", font="Times 110", width=20, height= 3)
+                texto2.grid(column=0, row =1, padx =1, pady =1)
+                master.update()
+                time.sleep(0.1)
+            if Medida1 == 13:
+                texto = f'Largura: Reprovado'
+                cv2.putText(frame, texto, (5, 35), cv2.FONT_HERSHEY_SIMPLEX, 0.4, (0,0,255), 1)
+                texto2=Label(master, text="L: Reprovado",bg="red", fg="white", font="Times 110", width=20, height= 3)
+                texto2.grid(column=0, row =1, padx =1, pady =1)
+                master.update()
+                time.sleep(0.1)
+            if Medida1 == 14:
+                texto = f'Largura: Reprovado'
+                cv2.putText(frame, texto, (5, 35), cv2.FONT_HERSHEY_SIMPLEX, 0.4, (0,0,255), 1)
+                texto2=Label(master, text="L: Reprovado",bg="red", fg="white", font="Times 110", width=20, height= 3)
+                texto2.grid(column=0, row =1, padx =1, pady =1)
+                master.update()
+                time.sleep(0.1)
+            if Medida1 == 15:
+                texto = f'Largura: Aprovado'
+                cv2.putText(frame, texto, (5, 35), cv2.FONT_HERSHEY_SIMPLEX, 0.4, (0,255,0), 1)
+                texto2=Label(master, text="L: Aprovado",bg="green", fg="white", font="Times 110", width=20, height= 3)
+                texto2.grid(column=0, row =1, padx =1, pady =1)
+                master.update()
+                time.sleep(0.1)
+            if Medida1 == 16:
+                texto = f'Largura: Reprovado'
+                cv2.putText(frame, texto, (5, 35), cv2.FONT_HERSHEY_SIMPLEX, 0.4, (0,0,255), 1)
+                texto2=Label(master, text="L: Reprovado",bg="red", fg="white", font="Times 110", width=20, height= 3)
+                texto2.grid(column=0, row =1, padx =1, pady =1)
+                master.update()
+                time.sleep(0.1)
+            if Medida1 == 17:
+                texto = f'Largura: Reprovado'
+                cv2.putText(frame, texto, (5, 35), cv2.FONT_HERSHEY_SIMPLEX, 0.4, (0,0,255), 1)
+                texto2=Label(master, text="L: Reprovado",bg="red", fg="white", font="Times 110", width=20, height= 3)
+                texto2.grid(column=0, row =1, padx =1, pady =1)
+                master.update()
+                time.sleep(0.1)
+            if Medida1 == 18:
+                texto = f'Largura: Reprovado'
+                cv2.putText(frame, texto, (5, 35), cv2.FONT_HERSHEY_SIMPLEX, 0.4, (0,0,255), 1)
+                texto2=Label(master, text="L: Reprovado",bg="red", fg="white", font="Times 110", width=20, height= 3)
+                texto2.grid(column=0, row =1, padx =1, pady =1)
+                master.update()
+                time.sleep(0.1)
+            if Medida1 == 19:
+                texto = f'Largura: Reprovado'
+                cv2.putText(frame, texto, (5, 35), cv2.FONT_HERSHEY_SIMPLEX, 0.4, (0,0,255), 1)
+                texto2=Label(master, text="L: Reprovado",bg="red", fg="white", font="Times 110", width=20, height= 3)
+                texto2.grid(column=0, row =1, padx =1, pady =1)
+                master.update()
+                time.sleep(0.1)
+            if Medida1 == 20:
+                texto = f'Largura: Reprovado'
+                cv2.putText(frame, texto, (5, 35), cv2.FONT_HERSHEY_SIMPLEX, 0.4, (0,0,255), 1)
+                texto2=Label(master, text="L: Reprovado",bg="red", fg="white", font="Times 110", width=20, height= 3)
+                texto2.grid(column=0, row =1, padx =1, pady =1)
+                master.update()
+                time.sleep(0.1)
+        
+          
+
+        cv2.imshow("Medidor", frame)
+        #cv2.imshow("Gray", gray)
+        #cv2.imshow("Blur", blur)
+        #cv2.imshow("Threshold", threshold)
+        #cv2.imshow("Canny", canny)
+        #cv2.imshow("Dilate", dilate)
+
+        key = cv2.waitKey(1)
+        if key == 27:
+            break
+          
+    
+    cap.release()
+    cv2.destroyAllWindows()
+  
+  
+
+master = Tk()
+
+master.geometry("1300x800+75+50")
+
+master["background"] = "white"
+
+master.title("Medidor Beta")
+
+Grid.columnconfigure(master, index = 0, weight = 1)
+
+Grid.rowconfigure(master, 0, weight = 0)
+
+botao = Button(master, text="Enter", relief="groove", fg="white", bg="black", activebackground="red", width=22, height= 3, command=la)
+botao.grid(column=0, row =4, padx = 300, pady =300)
+
+
+master.bind("<Return>", la)
+master.bind('<Escape>', lambda event: master.destroy())
+master.mainloop()
